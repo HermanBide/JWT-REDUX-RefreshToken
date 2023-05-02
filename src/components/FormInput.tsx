@@ -18,14 +18,15 @@ const FormInput: FC<IFormInputProps> = ({ name, label, ...otherProps }) => {
             defaultValue=""
             name={name}
             render={({ field }) => (
-                <FormControl>
-                    <Typography>{label}</Typography>
+                <FormControl fullWidth sx={{mb:2}}>
+                    <Typography sx={{color: "dark-gray"}}>{label}</Typography>
                     <Input 
                     {...field}
                     fullWidth
                     disableUnderline
                     error={!!errors[name]}
                     {...otherProps}
+                    sx={{color: "white"}}
                     />
                     <FormHelperText error={!!errors[name]}>
                         {errors[name]?(errors[name]?.message as unknown as string):""}

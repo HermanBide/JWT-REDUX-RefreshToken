@@ -2,6 +2,7 @@
 //then we will get that reference here 
 
 import {RegisterInput} from "../../pages/register.page"
+import {LoginInput} from "../../pages/login.page"
 import customFetchBase from "./customFetchBase"
 // import {LoginInput} from "../../pages/login.page"
 
@@ -13,8 +14,11 @@ const BASE_URL = process.env.REACT_APP_BACKEND_SERVER_ENDPOINT as string;
 
 export const authApi = createApi({
     reducerPath: "authApi",
+    //Query callback to fetch or constructs url parameters.
     baseQuery: customFetchBase,
     endpoints: (builder)=>({
+        //Mutations are used to send data updates to the server and apply the changes to the local cache.
+        // Mutations can also invalidate cached data and force re-fetches. {read more on redux-toolkit mutations.}
         registerUser: builder.mutation<GenericResponse,RegisterInput>({
             query(data){
 
@@ -23,6 +27,18 @@ export const authApi = createApi({
                     url:"auth/register",
                     method:"POST",
                     body:data
+                }
+            }
+        }),
+
+        loginUser: builder.mutation<GenericResponse,LoginInput>({
+            query(credentials){
+
+                console.log("Performed")
+                return{
+                    url:"auth/login",
+                    method:"POST",
+                    body:credentials,
                 }
             }
         }),
@@ -42,5 +58,6 @@ export const authApi = createApi({
 
 export const {
     useRegisterUserMutation,
-    useVerifyEmailMutation
+    useVerifyEmailMutation,
+    useLoginUserMutation,
 }= authApi
